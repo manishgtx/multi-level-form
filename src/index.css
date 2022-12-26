@@ -60,7 +60,7 @@ body {
 /* Web */
   .steps-container {
     height: 172px;
-    background: url('./img/bg-sidebar-mobile.svg') fixed;
+    background: url('./img/bg-sidebar-mobile.svg');
     display: flex;
     align-items: center;
     gap: 20px;
