@@ -1,10 +1,11 @@
 import React from 'react'
 
-const FormControl = ({label,setDetails,details}) => {
+const FormControl = ({label,setDetails,details,errorMessage,required,pattern}) => {
   return (
-    <div>
+    <div className='formInput'>
         <label for="">{label}</label>
-        <input type="text" value={details[label]} onChange={(e) =>  setDetails({...details,[label]:e.target.value})}/>
+        <input type="text" value={details[label]} required={required} pattern={pattern} onChange={(e) =>  setDetails({...details,[label]:e.target.value})}/>
+        <span>{errorMessage}</span>
     </div>
   )
 }

@@ -42,11 +42,11 @@ body {
   font-family: var(--ff-primary);
   font-size: 16px;
   background-color: var(--clr-magnolia);
-  min-width: 100ww;
+  min-width: 100vw;
   min-height: 100vh;
 }
 .App {
-  width: 900px;
+  max-width: 900px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -135,6 +135,10 @@ body {
   border: 1px solid var(--clr-gray-2);
   padding: 15px;
   border-radius: 10px;
+  cursor: pointer;
+}
+.card:hover {
+  border: 1px solid var(--clr-purplish-blue);
 }
 .card-img {
   width: 48px;
@@ -154,4 +158,38 @@ body {
 }
 .slider {
 
+}
+
+/* Form Input */
+.formInput {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+span {
+  font-size: 12px;
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ span {
+  display: block;
+}
+
+.prev-btn {
+  /* background-color: var(--clr-magnolia); */
+}
+
+.none {
+  display: none;
+}
+.blue {
+  border: 1px solid var(--clr-purplish-blue);
 }

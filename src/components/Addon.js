@@ -1,39 +1,30 @@
 import {useState} from 'react'
 import Info from './Info'
 import SingleAddon from './SingleAddon'
-import AddonData from '../meta/AddonData'
-const Addon = ({yearly,onSubmit,index,setIndex}) => {
-  const [addons,setAddons] = useState([]);
-  console.log(addons)
-    const handleAddonSubmit = (e) => {
-        e.preventDefault();
-        onSubmit({addons})
-        setIndex((index)=> index+1)
-    }
-    const addAddons = (title,price) => {
-      const addonPrice = yearly ? price*10 : price;
-      const addon = {title,addonPrice};
-      const check = addons.find((oldAddon)=> {
-        return oldAddon.title === addon.title;
-      })
+const Addon = ({yearly,addons,setAddons,details,setDetails}) => {
+    const addAddon = (id,title,price) => {
+      const singleAddon = {id,title,price}
+      const check = details.addons.find((oldAddon)=> oldAddon.id === id)
+
       if(check){
-        const newAddons = addons.filter((oldAddon)=> {
-          return addon.title!== oldAddon.title
-        })
-        setAddons(newAddons)
+        const newData = details.addons.filter((oldAddon)=> oldAddon.id !== id)
+        setDetails({...details,addons:newData})
       }
-      else {
-        setAddons([...addons,addon])
+      else{
+        const newDetails = {
+          ...details,addons:[...details.addons,singleAddon]
+        }
+        setDetails(newDetails)
       }
+      
     }
   return (
-    <form onSubmit={handleAddonSubmit}>
+    <div>
         <Info title='Pick add-ons' subTitle='Add-ons help enchance your gaming experience.'/>
-        {AddonData.map((data)=> {
-          return <SingleAddon key={data.id} yearly={yearly} addAddons={addAddons} {...data} addons={addons} setAddons={setAddons}/>
+        {addons.map((data)=> {
+          return <SingleAddon key={data.id} yearly={yearly} addAddon={addAddon} {...data} addons={addons} setAddons={setAddons}/>
         })}
-        <button type="submit">Next</button>
-    </form>
+    </div>
   )
 }
 

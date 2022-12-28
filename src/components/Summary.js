@@ -1,6 +1,6 @@
 import React from 'react'
 import Info from './Info'
-const Summary = ({details,setYearly,yearly,setIndex,index}) => {
+const Summary = ({details,setYearly,yearly}) => {
   return (
     <div>
       <Info title='Finishing up' subTitle='Double-check everything looks OK before confirming.'/>
@@ -27,8 +27,6 @@ const Summary = ({details,setYearly,yearly,setIndex,index}) => {
         <p>Total (per month)</p>
         <p>+$12/mo</p>    
       </div>
-      <button type='button' onClick={() => setIndex((index - 1))}></button>
-      <button>Next Step</button>
     </div>
   )
 }
