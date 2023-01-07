@@ -11,15 +11,15 @@ const SingleAddon = ({price,title,subTitle,yearly,checked,addons,setAddons,id,ad
       addAddon(id,title,newPrice)
     }
   return (
-    <div>
+    <div className={`single-addon ${checked ? 'blue' : ''}`}>
         <div class="checkbox-wrapper">
-            <input type="checkbox" name="" checked={checked} onChange={handleAddon} id=""/>
+            <input type="checkbox" className="checkbox-input" name="" checked={checked} onChange={handleAddon} id=""/>
             <div class="addon-info-wrapper">
-                <label>{title}</label>
+                <h4>{title}</h4>
                 <p>{subTitle}</p>
             </div>
         </div>
-        <p>{`+$${yearly ? `${price*10}/yr` : `${price}/mo`}`}</p>
+        <p className="addon-price">{`+$${yearly ? `${price*10}/yr` : `${price}/mo`}`}</p>
     </div>
   )
 }

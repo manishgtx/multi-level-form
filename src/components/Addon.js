@@ -21,9 +21,11 @@ const Addon = ({yearly,addons,setAddons,details,setDetails}) => {
   return (
     <div>
         <Info title='Pick add-ons' subTitle='Add-ons help enchance your gaming experience.'/>
+        <div className='addons-container'>
         {addons.map((data)=> {
           return <SingleAddon key={data.id} yearly={yearly} addAddon={addAddon} {...data} addons={addons} setAddons={setAddons}/>
         })}
+        </div>
     </div>
   )
 }

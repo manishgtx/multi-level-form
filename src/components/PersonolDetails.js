@@ -8,7 +8,7 @@ const PersonolDetails = ({details,setDetails}) => {
       type: "text",
       placeholder: "Username",
       label:'name',
-      errorMessage:"Username should be 3-16 characters",
+      errorMessage:"This field is required",
       required:true,
       pattern:'^[A-Za-z0-9]{3,16}$'
     },
@@ -18,7 +18,7 @@ const PersonolDetails = ({details,setDetails}) => {
       type: "text",
       placeholder: "Username",
       label:'email address',
-      errorMessage:"Username should be 3-16 characters",
+      errorMessage:"This field is required",
       required:true
     },
     {
@@ -27,7 +27,7 @@ const PersonolDetails = ({details,setDetails}) => {
       type: "text",
       placeholder: "Username",
       label: 'phone number',
-      errorMessage:"Username should be 3-16 characters",
+      errorMessage:"This field is required",
       required:true
     },
   ]

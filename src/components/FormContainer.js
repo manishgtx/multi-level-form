@@ -4,11 +4,13 @@ import SelectPlan from './SelectPlan';
 import Addon from './Addon';
 import Summary from './Summary'
 import AddonData from '../meta/AddonData';
+import thankYouIcon from '../img/icon-thank-you.svg';
 const FormContainer = ({index,setIndex}) => {
     const [yearly, setYearly] = useState(false);
     const [planPrice,setPlanPrice] = useState(null);
     const [addons,setAddons] = useState(AddonData);
     const [initial,setInitial] = useState(false);
+    const [totalPrice,setTotalPrice] = useState(0);
     const [details,setDetails] = useState({name:'',
     'email address': '',
     'phone number': '',
@@ -16,8 +18,8 @@ const FormContainer = ({index,setIndex}) => {
         name:'',
         price: null,
     },
-    addons:[] 
-        
+    addons:[],
+    total:0, 
     });
     console.log(details);
     const [plan,setPlan] = useState(-1);
@@ -32,19 +34,16 @@ const FormContainer = ({index,setIndex}) => {
             return <Addon yearly={yearly} addons={addons} setAddons={setAddons} details={details} setDetails={setDetails}/>
         }
         else if(index === 4){
-            return <Summary yearly={yearly} setYearly={setYearly} details={details}/>
+            return <Summary yearly={yearly} setYearly={setYearly} details={details} setTotal={setTotalPrice} total={totalPrice}/>
         }
         else if(index === 5){
-            return <h1>Thank You Page</h1>
+            return <div className='thank-you-page'>
+                <img src={thankYouIcon} alt="" className='thank-you-icon'/>
+                <h1>Thank you!</h1>
+                <p>Thanks for confirming your subscription! We hope you have fun using our platform. if you ever need support, please feel free to email us at support@loremgaming.com</p>
+            </div>
         }
     }
-    useEffect(() => {
-        if(initial){
-            const newPrice = yearly ? planPrice*10 : planPrice;
-        setDetails({...details,plan:{...details.plan,price:newPrice}})
-        }
-        
-    },[yearly,initial])
 
     useEffect(() => {
         if(initial){
@@ -52,24 +51,38 @@ const FormContainer = ({index,setIndex}) => {
                 const addonPrice = details.addons.map((addon) => {
                     return {...addon,price:addon.price*10}
                 })
-                setDetails({...details,addons:addonPrice})
+                const newPlan = {...details.plan,price:planPrice*10}
+                let total = totalPrice;
+                addonPrice.forEach((addon) => {
+                    total+=addon.price
+                })
+                total += newPlan.price
+                setDetails({...details,addons:addonPrice,plan:newPlan,total})
             }
             else {
                 const addonPrice = details.addons.map((addon) => {
                     return {...addon,price:addon.price/10}
                 })
-                setDetails({...details,addons:addonPrice})
+                const newPlan = {...details.plan,price:planPrice}
+                let total = totalPrice;
+                addonPrice.forEach((addon) => {
+                    total+=addon.price
+                })
+                total += newPlan.price
+                setDetails({...details,addons:addonPrice,plan:newPlan,total})
             }
         }
         else {
             setInitial(true);
         }
-    },[yearly,initial])
+    },[yearly])
   return (
-    <div>
+    <div className='main-form-container'>
         {pageDisplay()}
-        <button type='button' className={`prev-btn ${index < 2 && `none` }`} onClick={() => setIndex((index)=> index-1)}> Prev</button>
-        <button type='button' onClick={() => setIndex((index)=> index+1)}> Next</button>
+        <div class={`btns ${index > 4 ? 'none' : ''}`}>
+        <button type='button' className={`prev-btn ${index < 2 && `none` }`} onClick={() => setIndex((index)=> index-1)}> Go Back</button>
+        <button type='button' className='next-btn' onClick={() => setIndex((index)=> index+1)}>Next Step</button>
+        </div>
     </div>
   )
 }

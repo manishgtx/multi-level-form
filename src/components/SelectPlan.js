@@ -14,11 +14,11 @@ const SelectPlan = ({yearly,setYearly,plan,setPlan,details,setDetails,planPrice,
             }
         </div>
         <div class="subscription-slider">
-            <p>Monthly</p>
+            <p className={`month ${yearly ? '' : 'selected'}`}>Monthly</p>
             <div class="slider-container">
                 <input type="checkbox" name="" id="" className='slider' checked={yearly} onChange={()=> setYearly(!yearly)}/>
             </div>
-            <p>yearly</p>
+            <p className={`year ${yearly ? 'selected' : ''}`}>Yearly</p>
         </div>
     </form>
   )

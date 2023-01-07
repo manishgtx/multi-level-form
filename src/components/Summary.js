@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import Info from './Info'
-const Summary = ({details,setYearly,yearly}) => {
+const Summary = ({details,setYearly,yearly,setTotal,total}) => {
+  useEffect(()=> {
+    let total = 0;
+                details.addons.forEach((addon) => {
+                    total+=addon.price
+                })
+                total += details.plan.price
+                setTotal(total);
+  },[details])
   return (
     <div>
       <Info title='Finishing up' subTitle='Double-check everything looks OK before confirming.'/>
@@ -10,22 +18,21 @@ const Summary = ({details,setYearly,yearly}) => {
             <h4>Arcade ({yearly ? 'yearly' : 'Monthly'})</h4>
             <p onClick={()=> setYearly(!yearly)}>Change</p>
           </div>
-          <p>$9/mo</p>
+          <p>${details.plan.price}/mo</p>
         </div>
         {/* BR */}
-        <br/>
+        <hr/>
         {details.addons.map((service)=> {
           const {title,price} = service;
           return <div class="service">
-          <p>{title}</p>
-          <p>+${price}/mo</p>
+          <p className='service-title'>{title}</p>
+          <p className='service-para'>+${price}/mo</p>
         </div>
         })}
-        
       </div>
       <div class="total">
-        <p>Total (per month)</p>
-        <p>+$12/mo</p>    
+        <p className='total-title'>Total {yearly ? `(per year)` : `(per month)`}</p>
+        <p className='total-price'>+${total}/mo</p>    
       </div>
     </div>
   )
