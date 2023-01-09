@@ -10,18 +10,15 @@ const FormContainer = ({index,setIndex}) => {
     const [planPrice,setPlanPrice] = useState(null);
     const [addons,setAddons] = useState(AddonData);
     const [initial,setInitial] = useState(false);
-    const [totalPrice,setTotalPrice] = useState(0);
     const [details,setDetails] = useState({name:'',
     'email address': '',
     'phone number': '',
     plan:{
         name:'',
-        price: null,
+        price: 0,
     },
     addons:[],
-    total:0, 
     });
-    console.log(details);
     const [plan,setPlan] = useState(-1);
     const pageDisplay = () => {
         if(index === 1){
@@ -34,7 +31,7 @@ const FormContainer = ({index,setIndex}) => {
             return <Addon yearly={yearly} addons={addons} setAddons={setAddons} details={details} setDetails={setDetails}/>
         }
         else if(index === 4){
-            return <Summary yearly={yearly} setYearly={setYearly} details={details} setTotal={setTotalPrice} total={totalPrice}/>
+            return <Summary yearly={yearly} setYearly={setYearly} details={details}/>
         }
         else if(index === 5){
             return <div className='thank-you-page'>
@@ -52,24 +49,14 @@ const FormContainer = ({index,setIndex}) => {
                     return {...addon,price:addon.price*10}
                 })
                 const newPlan = {...details.plan,price:planPrice*10}
-                let total = totalPrice;
-                addonPrice.forEach((addon) => {
-                    total+=addon.price
-                })
-                total += newPlan.price
-                setDetails({...details,addons:addonPrice,plan:newPlan,total})
+                setDetails({...details,addons:addonPrice,plan:newPlan})
             }
             else {
                 const addonPrice = details.addons.map((addon) => {
                     return {...addon,price:addon.price/10}
                 })
                 const newPlan = {...details.plan,price:planPrice}
-                let total = totalPrice;
-                addonPrice.forEach((addon) => {
-                    total+=addon.price
-                })
-                total += newPlan.price
-                setDetails({...details,addons:addonPrice,plan:newPlan,total})
+                setDetails({...details,addons:addonPrice,plan:newPlan})
             }
         }
         else {

@@ -1,14 +1,11 @@
-import React, { useState,useEffect } from 'react'
 import Info from './Info'
-const Summary = ({details,setYearly,yearly,setTotal,total}) => {
-  useEffect(()=> {
-    let total = 0;
-                details.addons.forEach((addon) => {
-                    total+=addon.price
-                })
-                total += details.plan.price
-                setTotal(total);
-  },[details])
+const Summary = ({details,setYearly,yearly}) => {
+  let total=0; 
+  console.log(total)
+  details.addons.forEach((addon) => {
+    total+=addon.price
+  })
+  total += details.plan.price;
   return (
     <div>
       <Info title='Finishing up' subTitle='Double-check everything looks OK before confirming.'/>
